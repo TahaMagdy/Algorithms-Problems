@@ -1,35 +1,52 @@
 #!/usr/bin/python
+import math
 
-# n is the Rocket Number
-# a is the Acceleration
-# t is the Duration -- the time of rocket working
 class Rocket:
-
-    ##
+    '''
+    * n is the Rocket Number
+    * a is the Acceleration
+    * t is the Duration -- the time of rocket working
+    '''
     def __init__(self, n, a, t):
         self.n = n
         self.a = a
         self.t = t
-        initVelocity = 0
-        traveledDistance = 0
+##
 
-    ##
-    # Calculate the distance that is cut with this rocket
-    def traveled_distance(self, rocket):
-        return (self.initVelocity * self.t) + (0.5 * self.a * self.t * self.t)
+def main():
+    '''
+        1 * Reading the rockets data into rockets[]
+          * O(n)
+    '''
+    rocketsNumber = input("Enter the number of the rockets\n")
+    i = 0
+    rockets = []
+    print "Enter acceleration and time:"
+    for i in range (0,rocketsNumber):
+        a,t = raw_input().split()
+        a = float(a); t = float(t)
+        obj = Rocket(i, a, t )
+        rockets.append(obj)
 
-    ##
-    # Calculate the final velocity of the ship after launching this rocket
-    def final_velocity(self):
-        return self.initVelocity + (self.a * self.t)
-###
-#END CLASS Rocket
-###
+    '''
+        2 * Sorting Rockets based on acceleration.
+          * O(n log n)
+          * rockets has been reordered
+    '''
+    rockets.sort(key=lambda x: x.a, reverse=True)
 
 
+    '''
+        3 * Launching rockets
+    '''
+    distance = 0.0
+    vt       = 0.0
+    for p in rockets:
+        print "Rocket", (p.n+1)
+        vt += p.a * p.t
+        distance +=  (vt * p.t) + (0.5 * p.a * p.t * p.t)
 
-#TESTING
-obj = Rocket(2,3,4)
-obj.initVelocity = 0
-print obj.traveled_distance( obj)
-print obj.final_velocity()
+    print "Total distance", math.floor(distance/2)
+
+if __name__ == "__main__":
+    main()
