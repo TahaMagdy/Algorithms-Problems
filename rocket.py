@@ -43,10 +43,10 @@ def main():
     vt       = 0.0
     for p in rockets:
         print "Rocket", (p.n+1)
-        vt += p.a * p.t
         distance +=  (vt * p.t) + (0.5 * p.a * p.t * p.t)
+        vt += p.a * p.t
 
-    print "Total distance", math.floor(distance/2)
+    print "Total distance", distance
 
 if __name__ == "__main__":
     main()
